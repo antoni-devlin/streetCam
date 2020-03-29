@@ -1,5 +1,12 @@
 import requests, time, datetime
 
+target_count = input("How many times would you like to download each video? ")
+target_count = int(target_count)
+print("Tfl jamcams refresh around every three minutes.")
+
+interval = input("Interval between downloads (in mins): ")
+interval = int(interval) * 60
+
 def download_video_series(video_links):
     stamp = datetime.datetime.now()
     for name, url in video_links.items():
@@ -16,7 +23,7 @@ def download_video_series(video_links):
                 if chunk:
                     f.write(chunk)
 
-        print(file_name + " downloaded!\n")
+        print("Downloaded", file_name)
 
     return
 
@@ -30,8 +37,8 @@ links = {
 
 count = 1
 
-while count <= 100:
+while count <= target_count:
     print("Running iteration: " + str(count) + ".\n")
     download_video_series(links)
-    time.sleep(190)
+    time.sleep(interval)
     count += 1
